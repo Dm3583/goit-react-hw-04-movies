@@ -1,0 +1,19 @@
+/* NavBar */
+
+.link {
+  color: black;
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.activeLink {
+  color: red;
+  box-shadow: 2px 2px 2px grey;
+}
+
+.link + .link {
+  margin-left: 10px;
+}

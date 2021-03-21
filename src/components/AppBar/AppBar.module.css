@@ -1,0 +1,9 @@
+/* AppBar */
+
+.AppBar {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  border-bottom: 1px solid rgb(143, 141, 141);
+  box-shadow: 2px 2px 2px black;
+}
