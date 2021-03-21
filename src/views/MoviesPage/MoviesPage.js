@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SearchForm from '../../components/SearchForm';
 import filmsApi from '../../services/films-api';
-import FilmsList from '../../components/FilmsList';
+import MoviesList from '../../components/MoviesList';
 import { withRouter } from 'react-router-dom';
 
 class MoviesPage extends Component {
@@ -10,12 +10,20 @@ class MoviesPage extends Component {
     moviesForQuery: [],
   };
 
+  componentDidMount() {
+    const { history } = this.props;
+    if (history.location.search) {
+      const query = history.location.search.slice(7);
+      this.setState({ query: query });
+    }
+  }
+
   async componentDidUpdate(prevProps, prevState) {
     const { query } = this.state;
     if (query !== prevState.query) {
       const moviesForQuery = await filmsApi.fetchMoviesForQuery(query);
       this.setState({ moviesForQuery: moviesForQuery.results });
-      console.log(moviesForQuery.results);
+      // console.log(moviesForQuery.results);
     }
   }
 
@@ -25,8 +33,6 @@ class MoviesPage extends Component {
     const { history } = this.props;
     const location = {
       search: `?query=${value}`,
-      // pathname: '/somewhere',
-      // state: { fromDashboard: true }
     };
     history.push(location);
   };
@@ -37,7 +43,7 @@ class MoviesPage extends Component {
     return (
       <>
         <SearchForm onSubmit={onSubmit} />
-        {moviesForQuery.length > 0 && <FilmsList films={moviesForQuery} />}
+        {moviesForQuery.length > 0 && <MoviesList films={moviesForQuery} />}
       </>
     );
   }

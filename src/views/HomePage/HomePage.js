@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import filmsApi from '../../services/films-api';
-import FilmsList from '../../components/FilmsList';
+import MoviesList from '../../components/MoviesList';
 
 class HomePage extends Component {
   state = {
@@ -11,15 +11,15 @@ class HomePage extends Component {
   async componentDidMount() {
     const trendingMovies = await filmsApi.fetchTrendingMovies();
     this.setState({ trendingMovies: trendingMovies.results });
-    console.log(this.state.trendingMovies);
+    // console.log(this.state.trendingMovies);
   }
 
   render() {
     const { trendingMovies } = this.state;
     return (
       <div>
-        <h1>This is home page</h1>
-        <FilmsList films={trendingMovies} />
+        <h1>Trending today</h1>
+        <MoviesList films={trendingMovies} />
       </div>
     );
   }
