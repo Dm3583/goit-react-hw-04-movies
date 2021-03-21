@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SearchForm from '../../components/SearchForm';
 import filmsApi from '../../services/films-api';
 import FilmsList from '../../components/FilmsList';
+import { withRouter } from 'react-router-dom';
 
 class MoviesPage extends Component {
   state = {
@@ -20,7 +21,14 @@ class MoviesPage extends Component {
 
   onSubmit = value => {
     this.setState({ query: value });
-    console.log(value);
+    // console.log(value);
+    const { history } = this.props;
+    const location = {
+      search: `?query=${value}`,
+      // pathname: '/somewhere',
+      // state: { fromDashboard: true }
+    };
+    history.push(location);
   };
 
   render() {
@@ -35,4 +43,4 @@ class MoviesPage extends Component {
   }
 }
 
-export default MoviesPage;
+export default withRouter(MoviesPage);

@@ -4,21 +4,27 @@ import styles from './NavBar.module.css';
 
 const NavBar = () => (
   <nav>
-    <NavLink
-      to="./"
-      exact
-      className={styles.link}
-      activeClassName={styles.activeLink}
-    >
-      Home
-    </NavLink>
-    <NavLink
-      to="./movies"
-      className={styles.link}
-      activeClassName={styles.activeLink}
-    >
-      Movies
-    </NavLink>
+    <ul className={styles.navList}>
+      <li className={styles.item}>
+        <NavLink
+          to="/"
+          exact
+          className={styles.link}
+          activeClassName={styles.activeLink}
+        >
+          Home
+        </NavLink>
+      </li>
+      <li className={styles.item}>
+        <NavLink
+          to="/movies"
+          className={styles.link}
+          activeClassName={styles.activeLink}
+        >
+          Movies
+        </NavLink>
+      </li>
+    </ul>
   </nav>
 );
 

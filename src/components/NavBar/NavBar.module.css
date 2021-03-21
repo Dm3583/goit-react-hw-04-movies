@@ -1,5 +1,14 @@
 /* NavBar */
 
+.navList {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  display: inline-block;
+}
+
 .link {
   color: black;
   display: inline-block;
@@ -14,6 +23,6 @@
   box-shadow: 2px 2px 2px grey;
 }
 
-.link + .link {
+.item + .item {
   margin-left: 10px;
 }

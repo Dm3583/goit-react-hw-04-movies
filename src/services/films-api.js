@@ -19,8 +19,48 @@ const fetchMoviesForQuery = query => {
     .catch(error => error);
 };
 
-export default { fetchTrendingMovies, fetchMoviesForQuery };
+const fetchMovieDetails = movieId => {
+  return axios
+    .get(`${BASE_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US`)
+    .then(response => response.data)
+    .catch(error => error);
+};
+
+const fetchMovieCast = movieId => {
+  return axios
+    .get(
+      `${BASE_URL}movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`,
+    )
+    .then(response => response.data)
+    .catch(error => error);
+};
+
+const fetchMovieReviews = movieId => {
+  return axios
+    .get(
+      `${BASE_URL}movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US&page=1`,
+    )
+    .then(response => response.data)
+    .catch(error => error);
+};
+
+export default {
+  fetchTrendingMovies,
+  fetchMoviesForQuery,
+  fetchMovieDetails,
+  fetchMovieCast,
+  fetchMovieReviews,
+};
 
 // Search for query
 // https://api.themoviedb.org/3/search/movie?api_key={api_key}&query=Jack+Reacher
 // https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
+
+// Movie details
+// https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
+
+// Movie casts
+//https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=<<api_key>>&language=en-US
+
+// Movie reviews
+// https://api.themoviedb.org/3/movie/{movie_id}/reviews?api_key=<<api_key>>&language=en-US&page=1

@@ -10,7 +10,6 @@ class HomePage extends Component {
 
   async componentDidMount() {
     const trendingMovies = await filmsApi.fetchTrendingMovies();
-    console.log(trendingMovies);
     this.setState({ trendingMovies: trendingMovies.results });
     console.log(this.state.trendingMovies);
   }

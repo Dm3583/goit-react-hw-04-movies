@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
 import styles from './SearchForm.module.css';
+import Button from '../Button';
 
 class SearchForm extends Component {
   state = {
@@ -32,9 +32,10 @@ class SearchForm extends Component {
             type="text"
             onChange={handleInput}
           />
-          <button className={styles.submitBtn} type="submit">
+          <Button type={'submit'}>Search</Button>
+          {/* <button className={styles.submitBtn} type="submit">
             Search
-          </button>
+          </button> */}
         </form>
       </div>
     );

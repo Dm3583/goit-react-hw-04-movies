@@ -1,0 +1,39 @@
+.cardWrapper {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.thumb {
+  display: block;
+  height: 400px;
+}
+
+.poster {
+  width: 270px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.title {
+  margin-top: 0px;
+}
+
+.genresList {
+  list-style: none;
+  padding: 0;
+}
+
+.listItem {
+  display: inline-block;
+}
+
+.listItem + .listItem {
+  margin-left: 10px;
+}
