@@ -7,6 +7,7 @@ import styles from './MovieDetailsPage.module.css';
 import Reviews from '../../components/Reviews';
 import Cast from '../../components/Cast';
 import MovieDetailsNav from '../../components/MovieDetailsNav';
+import ErrorMessage from '../../components/ErrorMessage';
 
 class MovieDetailsPage extends Component {
   state = {
@@ -17,19 +18,23 @@ class MovieDetailsPage extends Component {
     genres: [],
     cast: [],
     reviews: [],
+    error: null,
   };
 
   async componentDidMount() {
-    const movieId = this.props.match.params.movieId;
-    const details = await filmsApi.fetchMovieDetails(movieId);
-    const cast = await filmsApi.fetchMovieCast(movieId);
-    const reviews = await filmsApi.fetchMovieReviews(movieId);
-    this.setState({
-      ...details,
-      cast: cast.cast,
-      reviews: reviews.results,
-    });
-    // console.log(this.state);
+    try {
+      const movieId = this.props.match.params.movieId;
+      const details = await filmsApi.fetchMovieDetails(movieId);
+      const cast = await filmsApi.fetchMovieCast(movieId);
+      const reviews = await filmsApi.fetchMovieReviews(movieId);
+      this.setState({
+        ...details,
+        cast: cast.cast,
+        reviews: reviews.results,
+      });
+    } catch (error) {
+      this.setState({ error });
+    }
   }
 
   handleGoBack = () => {
@@ -50,35 +55,42 @@ class MovieDetailsPage extends Component {
       genres,
       cast,
       reviews,
+      error,
     } = this.state;
     const userScore = Number(vote_average) * 10;
     const movieId = this.props.match.params.movieId;
 
     return (
-      <div className={styles.movieDetailsWrapper}>
-        <Button type="button" onClick={handleGoBack}>
-          Go back
-        </Button>
-        <MovieCard
-          title={title}
-          poster_path={poster_path}
-          userScore={userScore}
-          overview={overview}
-          genres={genres}
-        />
-        <MovieDetailsNav movieId={movieId} />
+      <>
+        {error ? (
+          <ErrorMessage />
+        ) : (
+          <div className={styles.movieDetailsWrapper}>
+            <Button type="button" onClick={handleGoBack}>
+              Go back
+            </Button>
+            <MovieCard
+              title={title}
+              poster_path={poster_path}
+              userScore={userScore}
+              overview={overview}
+              genres={genres}
+            />
+            <MovieDetailsNav movieId={movieId} />
 
-        <Switch>
-          <Route
-            path="/movies/:movieId/cast"
-            render={props => <Cast {...props} cast={cast} />}
-          />
-          <Route
-            path="/movies/:movieId/review"
-            render={props => <Reviews {...props} reviews={reviews} />}
-          />
-        </Switch>
-      </div>
+            <Switch>
+              <Route
+                path={`${this.props.match.url}/cast`}
+                render={props => <Cast {...props} cast={cast} />}
+              />
+              <Route
+                path={`${this.props.match.url}/review`}
+                render={props => <Reviews {...props} reviews={reviews} />}
+              />
+            </Switch>
+          </div>
+        )}
+      </>
     );
   }
 }
