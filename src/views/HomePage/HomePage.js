@@ -13,7 +13,6 @@ class HomePage extends Component {
     try {
       const trendingMovies = await filmsApi.fetchTrendingMovies();
       this.setState({ trendingMovies: trendingMovies.results });
-      // console.log(this.state.trendingMovies);
     } catch (error) {
       this.setState({ error });
     }

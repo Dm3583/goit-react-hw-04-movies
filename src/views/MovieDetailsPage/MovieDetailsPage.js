@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { NavLink, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import filmsApi from '../../services/films-api';
 import Button from '../../components/Button';
 import MovieCard from '../../components/MovieCard';
@@ -10,6 +11,12 @@ import MovieDetailsNav from '../../components/MovieDetailsNav';
 import ErrorMessage from '../../components/ErrorMessage';
 
 class MovieDetailsPage extends Component {
+  static propTypes = {
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+  };
+
   state = {
     title: '',
     poster_path: '',
@@ -47,6 +54,7 @@ class MovieDetailsPage extends Component {
 
   render() {
     const { handleGoBack } = this;
+    const { match } = this.props;
     const {
       title,
       poster_path,
@@ -58,7 +66,8 @@ class MovieDetailsPage extends Component {
       error,
     } = this.state;
     const userScore = Number(vote_average) * 10;
-    const movieId = this.props.match.params.movieId;
+    const movieId = match.params.movieId;
+    const url = match.url;
 
     return (
       <>
@@ -80,11 +89,11 @@ class MovieDetailsPage extends Component {
 
             <Switch>
               <Route
-                path={`${this.props.match.url}/cast`}
+                path={`${url}/cast`}
                 render={props => <Cast {...props} cast={cast} />}
               />
               <Route
-                path={`${this.props.match.url}/review`}
+                path={`${url}/review`}
                 render={props => <Reviews {...props} reviews={reviews} />}
               />
             </Switch>

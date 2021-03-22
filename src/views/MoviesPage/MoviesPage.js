@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import SearchForm from '../../components/SearchForm';
 import filmsApi from '../../services/films-api';
 import MoviesList from '../../components/MoviesList';
@@ -6,6 +7,10 @@ import { withRouter } from 'react-router-dom';
 import ErrorMessage from '../../components/ErrorMessage';
 
 class MoviesPage extends Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired,
+  };
+
   state = {
     query: '',
     moviesForQuery: [],

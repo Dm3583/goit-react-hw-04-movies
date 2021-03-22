@@ -23,4 +23,18 @@ const MoviesList = ({ films, location }) => (
   </div>
 );
 
+MoviesList.defaultProps = {
+  location: null,
+};
+
+MoviesList.propTypes = {
+  films: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      title: PropTypes.string.isRequired,
+    }),
+  ),
+  location: PropTypes.object,
+};
+
 export default withRouter(MoviesList);

@@ -1,9 +1,11 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styles from './MovieDetailsNav.module.css';
 
 const MovieDetailsNav = ({ movieId, location }) => {
-  const locationFrom = location.state.from;
+  const locationFrom = location && location.state ? location.state.from : '/';
+
   return (
     <div className={styles.navContainer}>
       <p>Additional information</p>
@@ -37,15 +39,13 @@ const MovieDetailsNav = ({ movieId, location }) => {
   );
 };
 
+MovieDetailsNav.defaultProps = {
+  location: null,
+};
+
+MovieDetailsNav.propTypes = {
+  movieId: PropTypes.string.isRequired,
+  location: PropTypes.object,
+};
+
 export default withRouter(MovieDetailsNav);
-
-//             to={{
-//pathname: `/movies/${id}`,
-//  state: {
-//  from: location,
-//              },
-//            }}
-
-// to={`/movies/${movieId}/cast`}
-
-// to={`/movies/${movieId}/review`}
