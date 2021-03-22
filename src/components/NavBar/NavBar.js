@@ -1,13 +1,14 @@
 import React from 'react';
 import { Switch, Rote, NavLink } from 'react-router-dom';
 import styles from './NavBar.module.css';
+import routes from '../../routes';
 
 const NavBar = () => (
   <nav>
     <ul className={styles.navList}>
       <li className={styles.item}>
         <NavLink
-          to="/"
+          to={routes.home}
           exact
           className={styles.link}
           activeClassName={styles.activeLink}
@@ -17,7 +18,7 @@ const NavBar = () => (
       </li>
       <li className={styles.item}>
         <NavLink
-          to="/movies"
+          to={routes.movies}
           className={styles.link}
           activeClassName={styles.activeLink}
         >

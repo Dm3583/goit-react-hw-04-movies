@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import styles from './MoviesList.module.css';
 
 const MoviesList = ({ films, location }) => (
   <div>
-    <ul>
+    <ul className={styles.list}>
       {films.map(({ id, title }) => (
         <li key={id}>
           <NavLink
