@@ -1,14 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import filmsApi from '../../services/films-api';
 import Button from '../../components/Button';
 import MovieCard from '../../components/MovieCard';
 import styles from './MovieDetailsPage.module.css';
-import Reviews from '../../components/Reviews';
-import Cast from '../../components/Cast';
+// import Reviews from '../../components/Reviews';
+// import Cast from '../../components/Cast';
 import MovieDetailsNav from '../../components/MovieDetailsNav';
 import ErrorMessage from '../../components/ErrorMessage';
+
+const Reviews = lazy(() =>
+  import('../../components/Reviews' /* webpackChunkName: "reviews" */),
+);
+const Cast = lazy(() =>
+  import('../../components/Cast' /* webpackChunkName: "cast" */),
+);
 
 class MovieDetailsPage extends Component {
   static propTypes = {
@@ -86,17 +93,18 @@ class MovieDetailsPage extends Component {
               genres={genres}
             />
             <MovieDetailsNav movieId={movieId} />
-
-            <Switch>
-              <Route
-                path={`${url}/cast`}
-                render={props => <Cast {...props} cast={cast} />}
-              />
-              <Route
-                path={`${url}/review`}
-                render={props => <Reviews {...props} reviews={reviews} />}
-              />
-            </Switch>
+            <Suspense fallback={<h1>Loading ...</h1>}>
+              <Switch>
+                <Route
+                  path={`${url}/cast`}
+                  render={props => <Cast {...props} cast={cast} />}
+                />
+                <Route
+                  path={`${url}/review`}
+                  render={props => <Reviews {...props} reviews={reviews} />}
+                />
+              </Switch>
+            </Suspense>
           </div>
         )}
       </>
